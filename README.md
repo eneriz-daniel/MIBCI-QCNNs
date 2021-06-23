@@ -8,18 +8,12 @@ This repo contains the source code of the project "FPGA implementation of BCIs u
 - [Link to YouTube Video]()
 - [Link to project repository]()
 
-
 - University name: [University of Zaragoza](unizar.es)
 - Participants:
-    - Name: Daniel Enériz Orta
-    - Email: eneriz@unizar.es  
+    - Daniel Enériz Orta (eneriz@unizar.es)
+    - Ana Caren Hernández Ruiz (anaacaren@unizar.es)
 
-
-    - Name: Ana Caren Hernández Ruiz
-    - Email: anaacaren@unizar.es 
-
-- Supervisor name: Nicolás Medrano Marqués
-- Supervisor e-mail: nmedrano@unizar.es
+- Supervisor: Nicolás Medrano Marqués (nmedrano@unizar.es)
 
 
 - Board used: Red Pitaya STEMLab 125-10 (XC7Z010)
