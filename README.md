@@ -1,4 +1,4 @@
-# MIBCI-QCNNs
+# FPGA implementation of BCIs using QCNNs
 
 ![EEGNet-based model architecture](img/EEGNet.svg)
 
