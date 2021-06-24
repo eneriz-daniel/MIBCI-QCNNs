@@ -1,6 +1,6 @@
 # MIBCI-QCNNs
 
-![EEGNet-based model architecture](img/EEGNet.jpg)
+![EEGNet-based model architecture](img/EEGNet.svg)
 
 This repo contains the source code of the project "FPGA implementation of BCIs using QCNNs" submitted to the [Xilinx Open Hardware Design Competition 2021](http://www.openhw.eu/).
 
