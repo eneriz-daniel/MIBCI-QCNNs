@@ -1,3 +1,11 @@
 /.vscode
-/requirements.txt
-/utils
+/Dataset
+/ds2
+/global_model
+/MI-QCNN-project-0-1
+/MI-QCNN-project-1-2
+/MI-QCNN-project-2-3
+/MI-QCNN-project-3-4
+/MI-QCNN-project-0-5
+/MI-QCNN-project-4-5
+/utils/__pycache__
