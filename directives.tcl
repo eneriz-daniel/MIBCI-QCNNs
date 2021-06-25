@@ -1,0 +1,8 @@
+set_directive_pipeline "MIBCI_QCNN/SepDepthKernelLoop"
+set_directive_pipeline "MIBCI_QCNN/AvgPool2PoolingLoop"
+set_directive_pipeline "MIBCI_QCNN/DenseInLoop"
+set_directive_pipeline "MIBCI_QCNN/AvgPool1PoolingLoop"
+set_directive_pipeline "MIBCI_QCNN/FlattenFramesLoop"
+set_directive_pipeline "MIBCI_QCNN/ConvWeightsLoop"
+set_directive_pipeline "MIBCI_QCNN/DepthChansLoop"
+set_directive_pipeline "MIBCI_QCNN/SepPointwiseKernelLoop"

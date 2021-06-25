@@ -10,3 +10,5 @@
 /MI-QCNN-project-4-5
 /utils/__pycache__
 *.log
+/MIBCI-QCNN-synth
+reports.csv
