@@ -5,6 +5,15 @@
 This repo contains the source code of the project "FPGA implementation of BCIs using QCNNs" submitted to the [Xilinx Open Hardware Design Competition 2021](http://www.openhw.eu/).
 
 
+## Index
+
+- [Project submission details](#project-submission-details)
+- [Brief description of the project](#brief-description-of-the-project)
+- [Description of the archive](#description-of-the-archive)
+- [Instructions to build and test project](#instructions-to-build-and-test-project)
+
+## Project submission details
+
 - Team number: **xohw21-129**
 - Project name: **FPGA implementation of BCIs using QCNNs**
 - [Link to YouTube Video]()
@@ -21,7 +30,7 @@ This repo contains the source code of the project "FPGA implementation of BCIs u
 - Board used: Red Pitaya STEMLab 125-10 (XC7Z010)
 - Software Version: Red Pitaya OS 1.04-7 
 
-## Brief description of project
+## Brief description of the project
 
 In this project a Brain Computer Interface (BCI) is explored using Quantized Convolutional Neural Networks (QCNNs) that process Electroencephalograph (EEG) data in order to recognize a Motor Imagery (MI) task. Concretely, the model is based on the [EEGNet](https://arxiv.org/abs/1611.08024) and trained over the [Physionet Motor Movement/Imagery dataset](https://physionet.org/content/eegmmidb/1.0.0/). This is a publicly available dataset composed of 64 EEG recordings of 109 subjects that performed the following motor imagery tasks:
 1. Opening and closing the right fist (R).
@@ -40,7 +49,7 @@ The [Red Pitaya STEMLab 125-10](https://www.redpitaya.com/f130/STEMlab-board) bo
 The hardware has been developed in Vivado HLS using an own-developed of the model in C++. Once the design is synthesized, an IP is exported for its integration using the Vivado IP integrator. This allows the creation of a `.bit` file, the bitstream, that can be load in the FPGA. Taking advantage of the CPU present in the Red Pitaya and its Jupyter-based interface a Python driver has been created to interface to the custom QCNN accelerator from the CPU.
  
 
-## Description of archive
+## Description of the archive
 
 This is the repository tree:
 ```
