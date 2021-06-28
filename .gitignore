@@ -12,3 +12,4 @@
 *.log
 /MIBCI-QCNN-synth
 reports.csv
+/.ipynb_checkpoints
