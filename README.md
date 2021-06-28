@@ -41,3 +41,68 @@ The hardware has been developed in Vivado HLS using an own-developed of the mode
  
 
 ## Description of archive
+
+This is the repository tree:
+```
+MIBCI-QCNNs
+├── csim-launcher.tcl
+├── csim-launcher-template.txt
+├── directives.tcl
+├── img
+│   ├── EEGNet.jpg
+│   ├── EEGNet.png
+│   └── EEGNet.svg
+├── implementation.ipynb
+├── LICENSE
+├── MIBCI-QCNN.cpp
+├── MIBCI-QCNN.h
+├── MIBCI-QCNN-h-template.txt
+├── MIBCI-QCNN-tb.cpp
+├── MIBCI-QCNN-tb-template.txt
+├── MIBCI-QCNN-template.txt
+├── README.md
+├── requirements.txt
+├── synth-launcher.tcl
+├── training.ipynb
+├── usage.ipynb
+└── utils
+    ├── accuracy_test.py
+    ├── createnpys.py
+    ├── get_data.py
+    ├── hlsparser.py
+    ├── hls_tools.py
+    └── train_tools.py
+```
+
+The text you are reading is in the [`README.md`](README.md) file and the license that protects the code in the repository is available in [`LICENSE`](LICENSE). Additionally, the header picture is included under the [`img/`](img) folder.
+
+The core code is under the [`utils/`](utils) folder, where there are six files:
+1. [`get_data.py`](utils/get_data.py). Adapted from [this code](https://github.com/MHersche/eegnet-based-embedded-bci/blob/master/get_data.py), allows the user to download the data and apply the data reduction methods.
+1. [`train_tools.py`](utils/train_tools.py). It embeds the training process: normalizing the data, splitting the validation from the training set and training the global model.
+1. [`createnpys.py`](utils/createnpys.py). Writes in a folder containing the a global-trained model the validation dataset and the model's parameters for each fold
+1. [`hls_tools.py`](utils/hls_tools.py). Contains the Vivado HLS launchers for simulation and synthesis. If used, the functions must be called from a `vivado_hls`-enabled bash. The main version of the simulation launcher function, `launch_csim` splits the global model simulation per folds, so at least 5 CPU kernels must be free in that launch and the `screen` linux command must be available. Their functions depend on:
+    1. The [`MIBCI-QCNN-tb-template.txt`](MIBCI-QCNN-tb-template.txt), [`MIBCI-QCNN-template.txt`](MIBCI-QCNN-template.txt) and [`MIBCI-QCNN-h-template.txt`](MIBCI-QCNN-h-template.txt), i.e. the source and testbench formatted files, enabling their control from Python.
+    1. The `vivado_hls` simulation launcher, [`csim_lancher.tcl`](csim_lancher.tcl) and its template [`csim_lancher-template.txt`](csim_lancher-template.txt).
+    1. The `vivado_hls` simulation launcher, [`synth-launcher.tcl`](synth-launcher.tcl) and its directives [`directives.tcl`](directives.tcl).
+1. [`hlsparser.py`](utils/hlsparser.py). This code is fully authored by Tiago Lascasas dos Santos and is also available [here](https://github.com/tiagolascasas/Vivado-HLS-Report-Parser).
+1. [`accuracy_test.py`](utils/accuracy_test.py). Here is a function that computes the validation accuracy of the HLS-simulated version of the model, saving a the validation accuracy-per-fold plot.
+
+All of the functions contained in the six [`utils`](utils) files depend on some popular Python libraries, available in [`requirements.txt`](requirements.txt)
+
+Most of the steps taken to develop the project ara available in the three Jupyter notebooks. All the global model training process is contained in the [`training.ipynb`](training.ipynb) notebook, relying in the [`get_data.py`](utils/get_data.py) and [`train_tools.py`](utils/train_tools.py) files. The simulation and synthetization steps of the HLS design are included in the [`implementation.ipynb`](implementation.ipynb). Which uses the remaining four `utils`, [`createnpys.py`](utils/createnpys.py), [`hls_tools.py`](utils/hls_tools.py), [`hlsparser.py`](utils/hlsparser.py) and [`accuracy_test.py`](utils/accuracy_test.py). Inside the [`usage.ipynb`](usage.ipynb) there is the code to run test the FPGA, this is the only code that must be run on the Zynq SoC. Its first cell explains its dependencies.
+
+Finally, the source files ([`MIBCI-QCNN.cpp`](MIBCI-QCNN.cpp) and [`MIBCI-QCNN.h`](MIBCI-QCNN.h)) and the testbench ([`MIBCI-QCNN-tb.cpp`](MIBCI-QCNN-tb.cpp)) built for the `T=3`, `ds=2`, `Nchan=64` and `Nclasses=4` has been also added.
+
+## Instructions to build and test project
+
+> All the steps previous to the Red Pitaya execution has been tested in Ubuntu 20.04.2 LTS.
+
+The notebooks are self-explained, so use the [`training.ipynb`](training.ipynb) to download the data and preprocess is according to the desired data reduction methods. At the end of the notebook you will get a folder called `global_model` with five subfolders containing the folds' parameters and their training details.
+
+Then in [`implementation.ipynb`](implementation.ipynb) you will find the details to check the results when the model is implemented and synthesizing its design. At the synthetization process finalization, you will get a folder `MIBCI-QCNN-synth` containing an HLS project. 
+
+Open the `MIBCI-QCNN-synth` project from the Vivado HLS GUI and export the design as an IP. To run the design on the FPGA you must integrate this IP in the Zynq Processing system with the Vivado IP integrator and then generate the bitstream. The description of this process is perfectly detailed in the fist minutes of this [FPGA Developer](https://youtu.be/Dupyek4NUoI) video.
+
+Once the bitstream is generated upload it to the Red Pitaya using a SFTP service, as [Filezilla](https://filezilla-project.org/). You will like to save them in a Jupyter-accessible folder. In our case we created the `/home/jupyter/MIBCI-QCNNs/` folder and uploaded the bitstream and the [`usage.ipynb`](usage.ipynb) notebook to there. To test the FPGA performance, [`usage.ipynb`](usage.ipynb) is created to load the model parameters from a folder called `global_model/npyparams` and the validation dataset from `global_model/validationDS`, so you can just get these directories from a fold of your choice inside the `global_model` directory of your training computer and upload them inside a folder called `global_model` at the same root as the [`usage.ipynb`](usage.ipynb) notebook. Inside the notebooks all the steps are explained.
+
+If there is any issue, post them in the Github's Issues tab or [send us an email](mailto:eneriz@unizar.es).
