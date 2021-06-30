@@ -16,7 +16,7 @@ This repo contains the source code of the project "FPGA implementation of BCIs u
 
 - Team number: **xohw21-129**
 - Project name: **FPGA implementation of BCIs using QCNNs**
-- [Link to YouTube Video]()
+- [Link to YouTube Video](https://youtu.be/s-FPJzREJCY)
 - [Link to project repository](https://github.com/eneriz-daniel/MIBCI-QCNNs)
 
 - University name: [University of Zaragoza](unizar.es)
